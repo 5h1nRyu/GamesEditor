@@ -6,27 +6,26 @@
 <title>麻将比赛录入 · games.json</title>
 <style>
 :root{color-scheme:light;--ink:#182d3e;--muted:#647587;--line:#dce4eb;--blue:#165eb0;--wash:#f1f5f9;--green:#187055;--red:#bd3649}
-*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif}button,input,select{font:inherit}button{cursor:pointer;background:white;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:9px 14px;font-weight:600}button:hover:not(:disabled){border-color:var(--blue);background:#eff6ff}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #85baf0;outline-offset:2px}input,select{border:1px solid #c5d1dd;border-radius:6px;background:#fff;color:var(--ink);padding:10px;width:100%;min-width:0}input::placeholder{color:#8b98a4}h1,h2,p{margin:0}h1{font-size:24px;letter-spacing:-.5px}h2{font-size:18px}header{background:#152e43;color:white;padding:23px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px}header p{color:#b8ccdc;font-size:14px;margin-top:3px}.badge{font:14px ui-monospace,monospace;border:1px solid #4e667b;padding:5px 10px;border-radius:5px}main{max-width:1400px;margin:24px auto;padding:0 24px 30px;display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:11px;overflow:hidden}.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.sub{font-size:14px;color:var(--muted)}.small{font-size:14px;padding:6px 10px}.roster{padding:5px 18px 18px}.team{padding-top:15px}.team-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:8px}.swatch{width:5px;height:16px;border-radius:2px}.names{display:grid;grid-template-columns:1fr 1fr;gap:6px}.name-btn{font-size:14px;padding:8px 6px;font-weight:500}.name-btn.selected{background:#edf4fb;border-color:#cadbef;color:#6b8092}.workspace{display:grid;gap:22px}.editor-body{padding:20px}.info-label{display:block;font-size:14px;font-weight:650;margin-bottom:7px}.entry-grid{display:grid;grid-template-columns:minmax(145px,1.25fr) minmax(115px,1fr) 62px 95px;gap:12px;align-items:center}.table-labels{font-size:14px;color:var(--muted);padding:23px 10px 7px}.player-row{padding:12px 10px;border:1px solid transparent;border-top-color:#edf1f5;border-radius:6px}.player-row.active{background:#f0f6fc;border-color:#c6dbee}.pick-row{display:flex;align-items:center;gap:9px;width:100%;padding:9px 7px;border-color:transparent;background:transparent;text-align:left}.row-index{font:14px ui-monospace,monospace;color:var(--muted)}.empty-name{color:var(--muted);font-weight:400}.num{font-variant-numeric:tabular-nums;text-align:right}.rank{text-align:center;font-size:14px}.point{font-weight:700;font-size:18px;white-space:nowrap}.positive{color:var(--green)}.negative{color:var(--red)}.tie-box{padding:16px;background:#fff8e9;border:1px solid #edd598;border-radius:8px;margin-top:14px}.tie-box p{font-size:14px;margin:5px 0 12px;color:#71551c}.seat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.seat-grid label{font-size:14px}.seat-grid select{margin-top:5px;padding:8px 4px}.summary{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:15px;padding-top:15px;color:var(--muted);font-size:14px}.summary strong{color:var(--ink)}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:20px}.primary{background:var(--blue);border-color:var(--blue);color:white}.primary:hover:not(:disabled){background:#104d93;color:white}.notice{font-size:14px;min-height:24px;margin-top:12px;color:var(--muted)}.notice.error{color:var(--red)}.rules{background:#f8fafc;border-top:1px solid var(--line);padding:14px 20px;font-size:14px;color:var(--muted)}.rules strong{color:var(--ink)}.empty{padding:33px 20px;text-align:center;color:var(--muted)}.game{padding:16px 20px;border-bottom:1px solid var(--line)}.game:last-child{border:0}.game-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}.game-title{font-weight:650;overflow-wrap:anywhere}.game-id{font:13px ui-monospace,monospace;color:var(--muted);margin-right:10px}.game-tools{display:flex;gap:6px;flex-shrink:0}.game-players{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;font-size:14px}.game-players div{background:#f5f8fb;padding:9px;border-radius:5px}.game-players span{display:block}.danger{color:var(--red)}[hidden]{display:none!important}.list-actions{display:flex;align-items:center;gap:12px}.footer-note{font-size:14px;color:var(--muted);padding:0 2px}
-@media(max-width:1050px){main{grid-template-columns:280px minmax(0,1fr);gap:15px;padding:0 15px}.entry-grid{grid-template-columns:minmax(120px,1fr) minmax(90px,1fr) 44px 78px;gap:6px}.editor-body{padding:14px}.point{font-size:16px}.game-players{grid-template-columns:1fr 1fr}.seat-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:760px){header{padding:18px}h1{font-size:21px}main{display:flex;flex-direction:column;margin-top:16px}.panel,.workspace{width:100%}.roster{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;max-height:290px;overflow:auto}.panel-head{padding:15px}.game{padding:15px}.entry-grid{grid-template-columns:minmax(105px,1fr) minmax(80px,.85fr) 42px 67px;gap:4px}.player-row{padding:10px 1px}.pick-row{padding:8px 2px;gap:4px;font-size:14px}.score{padding:9px 5px}.table-labels{padding-left:2px;padding-right:2px}.summary{flex-wrap:wrap}.badge{display:none}.list-actions{gap:6px}.name-btn{font-size:14px}.game-top{align-items:flex-start}}
+*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif}button,input,select{font:inherit}button{cursor:pointer;background:white;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:9px 14px;font-weight:600}button:hover:not(:disabled){border-color:var(--blue);background:#eff6ff}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #85baf0;outline-offset:2px}input,select{border:1px solid #c5d1dd;border-radius:6px;background:#fff;color:var(--ink);padding:10px;width:100%;min-width:0}input::placeholder{color:#8b98a4}h1,h2,p{margin:0}h1{font-size:24px;letter-spacing:-.5px}h2{font-size:18px}header{background:#152e43;color:white;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}main{max-width:1600px;margin:14px auto;padding:0 18px 24px;display:grid;grid-template-columns:560px minmax(0,1fr);gap:14px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:11px;overflow:hidden}.panel-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.sub{font-size:14px;color:var(--muted)}.small{font-size:14px;padding:6px 10px}.roster{padding:10px 12px 12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}.team{border:1px solid #bdcbd8;border-left:5px solid var(--team-color,#647587);border-radius:8px;background:#f8fafc;min-height:58px;overflow:hidden;box-shadow:0 1px 2px #182d3e12}.team[open]{background:#fff;border-color:#91a8bd}.team-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:9px;min-height:56px;padding:12px;cursor:pointer;list-style:none}.team-title::-webkit-details-marker{display:none}.team-title::after{content:'›';margin-left:auto;color:var(--muted);font-size:20px;transition:transform .15s}.team[open] .team-title::after{transform:rotate(90deg)}.swatch{width:7px;height:22px;border-radius:3px}.names{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:2px 10px 12px;border-top:1px solid #d8e1e9}.team:not([open])>.names{display:none}.name-btn{font-size:14px;min-height:42px;padding:8px 5px;font-weight:600;border-color:#cbd7e2;background:#fff}.name-btn:hover:not(:disabled){background:#e7f2fd}.name-btn.selected{background:#edf4fb;border-color:#cadbef;color:#6b8092}.workspace{display:grid;gap:14px}.editor-body{padding:14px 16px}.info-label{display:block;font-size:14px;font-weight:650;margin-bottom:7px}.entry-grid{display:grid;grid-template-columns:4fr 4fr 1fr 2fr 2fr;gap:12px;align-items:center}.table-labels{font-size:13px;color:var(--muted);padding:14px 8px 5px}.player-row{padding:7px 8px;border:1px solid transparent;border-top-color:#edf1f5;border-radius:6px}.player-row.active{background:#f0f6fc;border-color:#c6dbee}.pick-row{display:flex;align-items:center;gap:5px;width:100%;padding:9px 5px;border-color:transparent;background:transparent;text-align:left}.pick-row.has-team{background:color-mix(in srgb,var(--player-team-color) 14%,white);border-color:var(--player-team-color);border-left-width:5px}.row-index{font:14px ui-monospace,monospace;color:var(--muted)}.empty-name{color:var(--muted);font-weight:400}.num{font-variant-numeric:tabular-nums;text-align:right}.rank{text-align:center;font-size:14px}.point{font-weight:700;font-size:18px;white-space:nowrap}.positive{color:var(--green)}.negative{color:var(--red)}.tie-box{padding:16px;background:#fff8e9;border:1px solid #edd598;border-radius:8px;margin-top:14px}.tie-box p{font-size:14px;margin:5px 0 12px;color:#71551c}.seat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.seat-grid label{font-size:14px}.seat-grid select{margin-top:5px;padding:8px 4px}.summary{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:15px;padding-top:15px;color:var(--muted);font-size:14px}.summary strong{color:var(--ink)}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:20px}.primary{background:var(--blue);border-color:var(--blue);color:white}.primary:hover:not(:disabled){background:#104d93;color:white}.notice{font-size:14px;min-height:24px;margin-top:12px;color:var(--muted)}.notice.error{color:var(--red)}.auto-score{background:#eef7ff;border-color:#7baee0}.deduction-wrap{display:flex;align-items:center;gap:2px}.deduction{padding:7px 3px}.deduction-trigger{padding:6px 9px;font-size:13px;color:var(--red);border-color:#e6a8b1;background:#fff5f6}.deduction-trigger:hover:not(:disabled){color:#991e31;border-color:var(--red);background:#ffe9ec}.deduction-cancel{padding:6px 4px;color:var(--muted)}.empty{padding:33px 20px;text-align:center;color:var(--muted)}.game{padding:16px 20px;border-bottom:1px solid var(--line)}.game:last-child{border:0}.game-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}.game-title{font-weight:650;overflow-wrap:anywhere}.game-id{font:13px ui-monospace,monospace;color:var(--muted);margin-right:10px}.game-tools{display:flex;gap:6px;flex-shrink:0}.game-players{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;font-size:14px}.game-players div{background:#f5f8fb;padding:9px;border-radius:5px}.game-players span{display:block}.danger{color:var(--red)}[hidden]{display:none!important}.list-actions{display:flex;align-items:center;gap:12px}.footer-note{font-size:14px;color:var(--muted);padding:0 2px}
+@media(max-width:1200px){main{grid-template-columns:440px minmax(0,1fr);gap:12px;padding:0 12px}.entry-grid{grid-template-columns:4fr 4fr 1fr 2fr 2fr;gap:6px}.editor-body{padding:12px}.point{font-size:16px}.game-players{grid-template-columns:1fr 1fr}.seat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){header{padding:12px 16px}h1{font-size:21px}main{display:flex;flex-direction:column;margin-top:10px}.panel,.workspace{width:100%}.roster{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;max-height:290px;overflow:auto}.panel-head{padding:12px}.game{padding:12px}.entry-grid{grid-template-columns:4fr 4fr 1fr 2fr 2fr;gap:3px}.player-row{padding:7px 1px}.pick-row{padding:7px 2px;gap:2px;font-size:12px}.score,.deduction{padding:7px 4px}.table-labels{padding-left:2px;padding-right:2px}.summary{flex-wrap:wrap}.list-actions{gap:6px}.name-btn{font-size:13px}.game-top{align-items:flex-start}}
 </style>
 </head>
 <body>
-<header><div><h1>麻将比赛录入</h1><p>选择选手，填写持点，生成 games.json</p></div><span class="badge">JSON EDITOR / 离线可用</span></header>
+<header><h1>麻将比赛录入</h1></header>
 <main>
-<aside class="panel"><div class="panel-head"><h2>选手名单</h2><button id="import-teams" class="small">更换名单</button><input id="teams-file" type="file" accept=".json,application/json" hidden></div><div style="padding:12px 18px 0" class="sub">点击名字填入选中行，随后自动跳到空行。</div><div id="roster" class="roster"></div></aside>
+<aside class="panel"><div class="panel-head"><h2>选手名单</h2><button id="import-teams" class="small">更换名单</button><input id="teams-file" type="file" accept=".json,application/json" hidden></div><div style="padding:8px 12px 0" class="sub">点击队伍展开，点击名字填入。</div><div id="roster" class="roster"></div></aside>
 <div class="workspace">
 <section class="panel"><div class="panel-head"><h2 id="editor-title">录入新比赛</h2><span id="game-id" class="sub"></span></div>
 <div class="editor-body">
 <label for="info" class="info-label">比赛信息 · info</label><input id="info" type="text" placeholder="例如：9月26日 第一场" autocomplete="off">
-<div class="entry-grid table-labels"><span>选手 · name</span><span class="num">最终持点 · score</span><span class="rank">顺位</span><span class="num">积分</span></div>
+<div class="entry-grid table-labels"><span>选手 · name</span><span class="num">最终持点 · score</span><span class="rank">顺位</span><span class="num">特殊扣分</span><span class="num">积分</span></div>
 <div id="rows"></div>
 <div id="tie-box" class="tie-box" hidden><strong>三人同分：请补充起家顺序</strong><p>选择开局时的座次。按东→南→西→北确定同分选手的余数分配顺序。</p><div id="seats" class="seat-grid"></div><p id="tie-detail" style="margin-bottom:0"></p></div>
 <div class="summary"><span>持点合计 <strong id="score-total">—</strong></span><span id="calculation-status">填写四人的持点后计算积分</span></div>
 <div class="actions"><button id="save" class="primary">保存本场，继续录入</button><button id="reset">清空本场</button><button id="cancel" hidden>取消修改</button></div>
 <p id="notice" class="notice" role="status" aria-live="polite"></p>
 </div>
-<div class="rules"><strong>积分 = (最终持点 − 30,000) ÷ 1,000 + 顺位积分</strong><br>顺位积分：第 1 名 +50 / 第 2 名 +10 / 第 3 名 −10 / 第 4 名 −30。同分时平分所占顺位积分；三人同分按确认的余数规则分配。持点请填写已结算立直棒的数值。</div>
 </section>
 <section class="panel"><div class="panel-head"><h2>已保存 <span id="count">0</span> 场</h2><div class="list-actions"><button id="download" class="primary small" disabled>下载 games.json</button></div></div><div id="games-list"></div></section>
 <p class="footer-note">数据保留在当前页面中，关闭前请下载。修改和删除比赛不会改变其他比赛的编号。</p>
@@ -38,11 +37,13 @@
 // 单文件离线页面：名单内置，输出字段严格保持原 games.json 结构。
 const $ = id => document.getElementById(id);
 let teams = JSON.parse($('team-data').textContent).teams;
-let games = [], nextId = 0, editingId = null, activeRow = 0, unsaved = false;
+let games = [], nextId = 0, editingId = null, activeRow = 0, unsaved = false, autoScoreIndex = null, openTeamName = null;
 let players = emptyPlayers();
 const seatNames = ['东（起家）','南','西','北'];
 const seatHistory = new Map(); // 仅用于本页重新编辑，绝不导出额外字段。
-function emptyPlayers(){return Array.from({length:4},()=>({name:'',score:'',seat:''}));}
+function emptyPlayers(){return Array.from({length:4},()=>({name:'',score:'25000',seat:'',deduction:'',deductionOpen:false}));}
+function teamFor(name){return teams.find(team=>team.players.includes(name));}
+function validDeduction(value){return String(value).trim()===''||(Number.isFinite(Number(value))&&Number(value)>=0);}
 function el(tag, text, className){const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;}
 function notify(text,error=false){$('notice').textContent=text;$('notice').classList.toggle('error',error);}
 function formatPoint(value){return (value>0?'+':'')+value.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:3});}
@@ -82,7 +83,10 @@ function calculate(input){
 function renderRoster(){
   $('roster').replaceChildren();
   teams.forEach(team=>{
-    const section=el('div',undefined,'team'),heading=el('div',undefined,'team-title');
+    const section=el('details',undefined,'team'),heading=el('summary',undefined,'team-title');
+    section.open=team.name===openTeamName;
+    section.addEventListener('toggle',()=>{if(section.open){openTeamName=team.name;document.querySelectorAll('.team[open]').forEach(item=>{if(item!==section)item.open=false;});}else if(openTeamName===team.name)openTeamName=null;});
+    section.style.setProperty('--team-color',/^#[0-9a-f]{6}$/i.test(team.color)?team.color:'#647587');
     const swatch=el('span',undefined,'swatch');swatch.style.background=/^#[0-9a-f]{6}$/i.test(team.color)?team.color:'#647587';
     heading.append(swatch,el('span',team.name));section.append(heading);
     const names=el('div',undefined,'names');
@@ -97,6 +101,7 @@ function pickName(name){
   players[activeRow].name=name;
   players.forEach(p=>p.seat='');
   const empty=players.findIndex(p=>!p.name);if(empty>=0)activeRow=empty;
+  openTeamName=null;
   renderRows();renderRoster();updateCalculation();notify('');
 }
 function renderRows(){
@@ -104,15 +109,40 @@ function renderRows(){
   players.forEach((player,index)=>{
     const row=el('div',undefined,'entry-grid player-row'+(activeRow===index?' active':''));row.dataset.row=index;
     const pick=el('button',undefined,'pick-row');pick.setAttribute('aria-label',`选择第 ${index+1} 行选手`);
+    const playerTeam=teamFor(player.name);if(playerTeam){const color=/^#[0-9a-f]{6}$/i.test(playerTeam.color)?playerTeam.color:'#647587';pick.classList.add('has-team');pick.style.setProperty('--player-team-color',color);pick.title=playerTeam.name;}
     pick.append(el('span',String(index+1).padStart(2,'0'),'row-index'),el('span',player.name||'点击左侧名字',player.name?'':'empty-name'));
     pick.addEventListener('click',()=>{activeRow=index;document.querySelectorAll('.player-row').forEach((r,i)=>r.classList.toggle('active',i===index));});
-    const score=el('input',undefined,'score num');score.type='number';score.step='1';score.value=player.score;score.placeholder='如 35800';score.setAttribute('aria-label',`${player.name||'选手'+(index+1)}的最终持点`);
-    score.addEventListener('input',()=>{player.score=score.value;updateCalculation();});
+    const score=el('input',undefined,'score num'+(autoScoreIndex===index?' auto-score':''));score.type='number';score.step='100';score.value=player.score;score.placeholder='如 35800';score.setAttribute('aria-label',`${player.name||'选手'+(index+1)}的最终持点`);
+    score.addEventListener('input',()=>{if(autoScoreIndex===index)autoScoreIndex=null;player.score=score.value;autoFillScore(index);updateCalculation();});
+    score.addEventListener('wheel',event=>{if(!event.deltaY)return;event.preventDefault();if(autoScoreIndex===index)autoScoreIndex=null;const current=validScore(score.value)?Number(score.value):0;score.value=String(current+(event.deltaY<0?100:-100));player.score=score.value;autoFillScore(index);updateCalculation();},{passive:false});
     const rank=el('span','—','rank');rank.id='rank-'+index;
     const point=el('span','—','point num');point.id='point-'+index;
-    row.append(pick,score,rank,point);$('rows').append(row);
+    const deductionBox=el('div',undefined,'deduction-wrap');
+    if(!player.deductionOpen){
+      const trigger=el('button','扣分','deduction-trigger');trigger.type='button';trigger.setAttribute('aria-label',`为${player.name||'选手'+(index+1)}添加特殊扣分`);
+      trigger.addEventListener('click',()=>{player.deductionOpen=true;renderRows();updateCalculation();document.querySelector(`.player-row[data-row="${index}"] .deduction`)?.focus();});deductionBox.append(trigger);
+    }else{
+      const deduction=el('input',undefined,'deduction num');deduction.type='number';deduction.min='0';deduction.step='any';deduction.value=player.deduction;deduction.placeholder='扣分';deduction.setAttribute('aria-label',`${player.name||'选手'+(index+1)}的特殊扣分`);
+      deduction.addEventListener('input',()=>{player.deduction=deduction.value;updateCalculation();});
+      deduction.addEventListener('change',()=>{if(Number(deduction.value)===0){player.deduction='';player.deductionOpen=false;renderRows();updateCalculation();}});
+      const cancel=el('button','×','deduction-cancel');cancel.type='button';cancel.setAttribute('aria-label',`取消${player.name||'选手'+(index+1)}的特殊扣分`);cancel.addEventListener('click',()=>{player.deduction='';player.deductionOpen=false;renderRows();updateCalculation();});
+      deductionBox.append(deduction,cancel);
+    }
+    row.append(pick,score,rank,deductionBox,point);$('rows').append(row);
   });
   renderSeats();
+}
+function autoFillScore(changedIndex){
+  if(autoScoreIndex!==null&&changedIndex!==autoScoreIndex){
+    const others=players.filter((_,i)=>i!==autoScoreIndex);
+    if(others.every(p=>validScore(p.score)))players[autoScoreIndex].score=String(100000-others.reduce((sum,p)=>sum+Number(p.score),0));
+  }else if(autoScoreIndex===null){
+    const blanks=players.map((p,i)=>String(p.score).trim()===''?i:-1).filter(i=>i>=0);
+    if(blanks.length===1&&players.every((p,i)=>i===blanks[0]||validScore(p.score))){
+      autoScoreIndex=blanks[0];players[autoScoreIndex].score=String(100000-players.reduce((sum,p,i)=>i===autoScoreIndex?sum:sum+Number(p.score),0));
+    }
+  }
+  players.forEach((p,i)=>{const input=document.querySelector(`.player-row[data-row="${i}"] .score`);if(input){input.value=p.score;input.classList.toggle('auto-score',autoScoreIndex===i);}});
 }
 function renderSeats(){
   $('seats').replaceChildren();
@@ -129,27 +159,35 @@ function updateCalculation(){
   $('score-total').textContent=players.every(p=>validScore(p.score))?players.reduce((sum,p)=>sum+Number(p.score),0).toLocaleString('en-US'):'—';
   players.forEach((p,i)=>{
     const result=state.result?.[i];$('rank-'+i).textContent=result?(result.tied?'并列':'')+result.rank:'—';
-    const point=$('point-'+i);point.textContent=result?.point!=null?formatPoint(result.point):'—';
-    point.className='point num'+(result?.point>0?' positive':result?.point<0?' negative':'');
+    const finalPoint=result?.point!=null&&validDeduction(p.deduction)?result.point-(p.deduction===''?0:Number(p.deduction)):null;
+    const point=$('point-'+i);point.textContent=finalPoint!=null?formatPoint(finalPoint):'—';
+    point.className='point num'+(finalPoint>0?' positive':finalPoint<0?' negative':'');
   });
-  $('calculation-status').textContent=state.ready?'积分已计算':state.needsSeats?'等待补充起家顺序':'填写四人的持点后计算积分';
+  const total=players.every(p=>validScore(p.score))?players.reduce((sum,p)=>sum+Number(p.score),0):null;
+  $('calculation-status').textContent=total!==null&&total!==100000?'持点合计必须为 100,000':state.ready?'积分已计算':state.needsSeats?'等待补充起家顺序':'填写三人的持点后自动补全';
   $('tie-detail').textContent=state.needsSeats?'四人的座次不能重复。':state.tripleBonus?.map(x=>`${x.name||'未选选手'}：${formatPoint(x.bonus)}`).join(' / ')||'';
   $('game-id').textContent='gameId: '+(editingId===null?nextId:editingId);
 }
-function draftHasContent(){return $('info').value!==''||players.some(p=>p.name||p.score!=='');}
-function resetEditor(){players=emptyPlayers();editingId=null;activeRow=0;$('info').value='';$('editor-title').textContent='录入新比赛';$('save').textContent='保存本场，继续录入';$('cancel').hidden=true;renderRows();renderRoster();updateCalculation();}
+function draftHasContent(){return $('info').value!==''||players.some(p=>p.name||p.score!=='25000'||p.deduction!=='');}
+function resetEditor(){players=emptyPlayers();editingId=null;activeRow=0;autoScoreIndex=null;$('info').value='';$('editor-title').textContent='录入新比赛';$('save').textContent='保存本场，继续录入';$('cancel').hidden=true;renderRows();renderRoster();updateCalculation();}
 function saveGame(){
+  const info=$('info').value.trim();if(!info){notify('请填写比赛信息 info。',true);return;}
   if(players.some(p=>!p.name)){notify('请先选择四名选手。',true);return;}
   if(new Set(players.map(p=>p.name)).size!==4){notify('同一场不能重复选择选手。',true);return;}
+  const selectedTeams=players.map(p=>teamFor(p.name));if(selectedTeams.some(team=>!team)){notify('选手不在当前名单中，请重新选择。',true);return;}
+  if(new Set(selectedTeams.map(team=>team.name)).size!==4){notify('同一场的四名选手必须来自四支不同队伍。',true);return;}
   const state=calculate(players);if(!state.ready){notify(state.error,true);return;}
+  if(players.reduce((sum,p)=>sum+Number(p.score),0)!==100000){notify('四人的持点合计必须为 100,000。',true);return;}
+  if(players.some(p=>!validDeduction(p.deduction))){notify('特殊扣分不能为负数。',true);return;}
   const id=editingId===null?nextId:editingId;
-  const game={gameId:id,info:$('info').value,players:players.map((p,i)=>({name:p.name,score:Number(p.score),teamPoint:state.result[i].point}))};
+  const game={gameId:id,info,players:players.map((p,i)=>({name:p.name,score:Number(p.score),teamPoint:state.result[i].point-(p.deduction===''?0:Number(p.deduction))}))};
   if(editingId===null){games.push(game);nextId++;}else games[games.findIndex(g=>g.gameId===id)]=game;
   seatHistory.set(id,players.map(p=>p.seat));unsaved=true;resetEditor();renderGames();notify(`已保存比赛 #${id}，可以继续录入。`);
 }
 function editGame(id){
   if(draftHasContent()&&!confirm('切换比赛会丢弃当前未保存的填写内容，继续吗？'))return;
-  const game=games.find(g=>g.gameId===id);editingId=id;players=game.players.map((p,i)=>({name:p.name,score:String(p.score),seat:seatHistory.get(id)?.[i]??''}));
+  const game=games.find(g=>g.gameId===id);editingId=id;autoScoreIndex=null;players=game.players.map((p,i)=>({name:p.name,score:String(p.score),seat:seatHistory.get(id)?.[i]??'',deduction:'',deductionOpen:false}));
+  const base=calculate(players);if(base.ready)players.forEach((p,i)=>{const deduction=base.result[i].point-game.players[i].teamPoint;p.deduction=deduction>0?String(deduction):'';p.deductionOpen=deduction>0;});
   $('info').value=game.info;activeRow=0;$('editor-title').textContent='修改比赛';$('save').textContent='保存修改';$('cancel').hidden=false;
   renderRows();renderRoster();updateCalculation();notify('');$('editor-title').scrollIntoView({behavior:'smooth',block:'center'});
 }
