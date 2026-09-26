@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>麻将比赛录入 · games.json</title>
+<style>
+:root{color-scheme:light;--ink:#182d3e;--muted:#647587;--line:#dce4eb;--blue:#165eb0;--wash:#f1f5f9;--green:#187055;--red:#bd3649}
+*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif}button,input,select{font:inherit}button{cursor:pointer;background:white;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:9px 14px;font-weight:600}button:hover:not(:disabled){border-color:var(--blue);background:#eff6ff}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #85baf0;outline-offset:2px}input,select{border:1px solid #c5d1dd;border-radius:6px;background:#fff;color:var(--ink);padding:10px;width:100%;min-width:0}input::placeholder{color:#8b98a4}h1,h2,p{margin:0}h1{font-size:24px;letter-spacing:-.5px}h2{font-size:18px}header{background:#152e43;color:white;padding:23px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px}header p{color:#b8ccdc;font-size:14px;margin-top:3px}.badge{font:14px ui-monospace,monospace;border:1px solid #4e667b;padding:5px 10px;border-radius:5px}main{max-width:1400px;margin:24px auto;padding:0 24px 30px;display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:11px;overflow:hidden}.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.sub{font-size:14px;color:var(--muted)}.small{font-size:14px;padding:6px 10px}.roster{padding:5px 18px 18px}.team{padding-top:15px}.team-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:8px}.swatch{width:5px;height:16px;border-radius:2px}.names{display:grid;grid-template-columns:1fr 1fr;gap:6px}.name-btn{font-size:14px;padding:8px 6px;font-weight:500}.name-btn.selected{background:#edf4fb;border-color:#cadbef;color:#6b8092}.workspace{display:grid;gap:22px}.editor-body{padding:20px}.info-label{display:block;font-size:14px;font-weight:650;margin-bottom:7px}.entry-grid{display:grid;grid-template-columns:minmax(145px,1.25fr) minmax(115px,1fr) 62px 95px;gap:12px;align-items:center}.table-labels{font-size:14px;color:var(--muted);padding:23px 10px 7px}.player-row{padding:12px 10px;border:1px solid transparent;border-top-color:#edf1f5;border-radius:6px}.player-row.active{background:#f0f6fc;border-color:#c6dbee}.pick-row{display:flex;align-items:center;gap:9px;width:100%;padding:9px 7px;border-color:transparent;background:transparent;text-align:left}.row-index{font:14px ui-monospace,monospace;color:var(--muted)}.empty-name{color:var(--muted);font-weight:400}.num{font-variant-numeric:tabular-nums;text-align:right}.rank{text-align:center;font-size:14px}.point{font-weight:700;font-size:18px;white-space:nowrap}.positive{color:var(--green)}.negative{color:var(--red)}.tie-box{padding:16px;background:#fff8e9;border:1px solid #edd598;border-radius:8px;margin-top:14px}.tie-box p{font-size:14px;margin:5px 0 12px;color:#71551c}.seat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.seat-grid label{font-size:14px}.seat-grid select{margin-top:5px;padding:8px 4px}.summary{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:15px;padding-top:15px;color:var(--muted);font-size:14px}.summary strong{color:var(--ink)}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:20px}.primary{background:var(--blue);border-color:var(--blue);color:white}.primary:hover:not(:disabled){background:#104d93;color:white}.notice{font-size:14px;min-height:24px;margin-top:12px;color:var(--muted)}.notice.error{color:var(--red)}.rules{background:#f8fafc;border-top:1px solid var(--line);padding:14px 20px;font-size:14px;color:var(--muted)}.rules strong{color:var(--ink)}.empty{padding:33px 20px;text-align:center;color:var(--muted)}.game{padding:16px 20px;border-bottom:1px solid var(--line)}.game:last-child{border:0}.game-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}.game-title{font-weight:650;overflow-wrap:anywhere}.game-id{font:13px ui-monospace,monospace;color:var(--muted);margin-right:10px}.game-tools{display:flex;gap:6px;flex-shrink:0}.game-players{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;font-size:14px}.game-players div{background:#f5f8fb;padding:9px;border-radius:5px}.game-players span{display:block}.danger{color:var(--red)}[hidden]{display:none!important}.list-actions{display:flex;align-items:center;gap:12px}.footer-note{font-size:14px;color:var(--muted);padding:0 2px}
+@media(max-width:1050px){main{grid-template-columns:280px minmax(0,1fr);gap:15px;padding:0 15px}.entry-grid{grid-template-columns:minmax(120px,1fr) minmax(90px,1fr) 44px 78px;gap:6px}.editor-body{padding:14px}.point{font-size:16px}.game-players{grid-template-columns:1fr 1fr}.seat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){header{padding:18px}h1{font-size:21px}main{display:flex;flex-direction:column;margin-top:16px}.panel,.workspace{width:100%}.roster{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;max-height:290px;overflow:auto}.panel-head{padding:15px}.game{padding:15px}.entry-grid{grid-template-columns:minmax(105px,1fr) minmax(80px,.85fr) 42px 67px;gap:4px}.player-row{padding:10px 1px}.pick-row{padding:8px 2px;gap:4px;font-size:14px}.score{padding:9px 5px}.table-labels{padding-left:2px;padding-right:2px}.summary{flex-wrap:wrap}.badge{display:none}.list-actions{gap:6px}.name-btn{font-size:14px}.game-top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header><div><h1>麻将比赛录入</h1><p>选择选手，填写持点，生成 games.json</p></div><span class="badge">JSON EDITOR / 离线可用</span></header>
+<main>
+<aside class="panel"><div class="panel-head"><h2>选手名单</h2><button id="import-teams" class="small">更换名单</button><input id="teams-file" type="file" accept=".json,application/json" hidden></div><div style="padding:12px 18px 0" class="sub">点击名字填入选中行，随后自动跳到空行。</div><div id="roster" class="roster"></div></aside>
+<div class="workspace">
+<section class="panel"><div class="panel-head"><h2 id="editor-title">录入新比赛</h2><span id="game-id" class="sub"></span></div>
+<div class="editor-body">
+<label for="info" class="info-label">比赛信息 · info</label><input id="info" type="text" placeholder="例如：9月26日 第一场" autocomplete="off">
+<div class="entry-grid table-labels"><span>选手 · name</span><span class="num">最终持点 · score</span><span class="rank">顺位</span><span class="num">积分</span></div>
+<div id="rows"></div>
+<div id="tie-box" class="tie-box" hidden><strong>三人同分：请补充起家顺序</strong><p>选择开局时的座次。按东→南→西→北确定同分选手的余数分配顺序。</p><div id="seats" class="seat-grid"></div><p id="tie-detail" style="margin-bottom:0"></p></div>
+<div class="summary"><span>持点合计 <strong id="score-total">—</strong></span><span id="calculation-status">填写四人的持点后计算积分</span></div>
+<div class="actions"><button id="save" class="primary">保存本场，继续录入</button><button id="reset">清空本场</button><button id="cancel" hidden>取消修改</button></div>
+<p id="notice" class="notice" role="status" aria-live="polite"></p>
+</div>
+<div class="rules"><strong>积分 = (最终持点 − 30,000) ÷ 1,000 + 顺位积分</strong><br>顺位积分：第 1 名 +50 / 第 2 名 +10 / 第 3 名 −10 / 第 4 名 −30。同分时平分所占顺位积分；三人同分按确认的余数规则分配。持点请填写已结算立直棒的数值。</div>
+</section>
+<section class="panel"><div class="panel-head"><h2>已保存 <span id="count">0</span> 场</h2><div class="list-actions"><button id="download" class="primary small" disabled>下载 games.json</button></div></div><div id="games-list"></div></section>
+<p class="footer-note">数据保留在当前页面中，关闭前请下载。修改和删除比赛不会改变其他比赛的编号。</p>
+</div>
+</main>
+<script id="team-data" type="application/json">{"teams": [{"name": "EX风林火山", "shortName": "火山", "color": "#000000", "initialScore": 0, "players": ["二阶堂亚树", "胜又健志", "内川幸太郎", "永井孝典"]}, {"name": "科乐美麻将格斗俱乐部", "shortName": "格斗", "color": "#920101", "initialScore": 0, "players": ["佐佐木寿人", "泷泽和典", "高宫茉莉", "伊达朱里纱"]}, {"name": "野兽X", "shortName": "野兽", "color": "#002953", "initialScore": 0, "players": ["铃木大介", "中田花奈", "下石戟", "东城理央"]}, {"name": "赤坂驱动力", "shortName": "赤坂", "color": "#9cb832", "initialScore": 0, "players": ["园田贤", "铃木太郎", "渡边太", "浅见真纪"]}, {"name": "U-NEXT海盗", "shortName": "海盗", "color": "#0582c8", "initialScore": 0, "players": ["仲林圭", "瑞原明奈", "铃木优", "朝仓康心"]}, {"name": "地球喷射机", "shortName": "地球", "color": "#006934", "initialScore": 0, "players": ["石井一马", "HIRO柴田", "三浦智博", "逢川惠梦"]}, {"name": "角川樱花骑士", "shortName": "樱花", "color": "#f895b5", "initialScore": 0, "players": ["堀慎吾", "冈田纱佳", "阿久津翔太", "尻无滨航"]}, {"name": "雷电", "shortName": "雷电", "color": "#dbb400", "initialScore": 0, "players": ["萩原圣人", "濑户熊直树", "本田朋广", "黑泽咲"]}, {"name": "涩谷ABEMAS", "shortName": "AB", "color": "#c6ae6f", "initialScore": 0, "players": ["多井隆晴", "松本吉弘", "白鸟翔", "日向蓝子"]}, {"name": "世嘉飒美凤凰", "shortName": "凤凰", "color": "#b74801", "initialScore": 0, "players": ["茅森早香", "竹内元太", "醍醐大", "佐野日向子"]}]}</script>
+<script>
+'use strict';
+// 单文件离线页面：名单内置，输出字段严格保持原 games.json 结构。
+const $ = id => document.getElementById(id);
+let teams = JSON.parse($('team-data').textContent).teams;
+let games = [], nextId = 0, editingId = null, activeRow = 0, unsaved = false;
+let players = emptyPlayers();
+const seatNames = ['东（起家）','南','西','北'];
+const seatHistory = new Map(); // 仅用于本页重新编辑，绝不导出额外字段。
+function emptyPlayers(){return Array.from({length:4},()=>({name:'',score:'',seat:''}));}
+function el(tag, text, className){const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;}
+function notify(text,error=false){$('notice').textContent=text;$('notice').classList.toggle('error',error);}
+function formatPoint(value){return (value>0?'+':'')+value.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:3});}
+function validScore(value){return String(value).trim()!=='' && Number.isSafeInteger(Number(value)) && Math.abs(Number(value))<=1000000000;}
+
+// 以整数点分配顺位点，最后除以 1000，避免浮点余数影响分配。
+function calculate(input){
+  if(!input.every(p=>validScore(p.score)))return {ready:false,error:'请填写四人的整数持点（允许负数）。'};
+  const ordered=input.map((p,i)=>({index:i,score:Number(p.score)})).sort((a,b)=>b.score-a.score);
+  const rankPoints=[50000,10000,-10000,-30000];
+  const result=Array(4);let hasTriple=false,needsSeats=false,tripleBonus=[];
+  for(let start=0;start<4;){
+    let end=start+1;while(end<4&&ordered[end].score===ordered[start].score)end++;
+    const group=ordered.slice(start,end),count=group.length;
+    const total=rankPoints.slice(start,end).reduce((a,b)=>a+b,0);
+    let bonuses=Array(count).fill(total/count);
+    if(count===3){
+      hasTriple=true;
+      const seats=input.map(p=>p.seat);
+      const validSeats=seats.every(s=>s!==''&&Number.isInteger(Number(s))&&Number(s)>=0&&Number(s)<4)&&new Set(seats.map(Number)).size===4;
+      if(!validSeats){needsSeats=true;bonuses=Array(count).fill(null);}
+      else{
+        group.sort((a,b)=>Number(input[a.index].seat)-Number(input[b.index].seat));
+        const base=Math.floor(total/(count*1000))*1000;
+        const remainder=total-base*count;
+        // 余下 1000 → 400/300/300；余下 2000 → 800/600/600。
+        const extra=remainder===2000?[800,600,600]:remainder===1000?[400,300,300]:[0,0,0];
+        bonuses=extra.map(v=>base+v);
+        tripleBonus=group.map((item,j)=>({name:input[item.index].name,bonus:bonuses[j]/1000}));
+      }
+    }
+    group.forEach((item,j)=>{result[item.index]={rank:start+1,tied:count>1,bonus:bonuses[j]===null?null:bonuses[j]/1000,point:bonuses[j]===null?null:(item.score-30000+bonuses[j])/1000};});
+    start=end;
+  }
+  return {ready:!needsSeats,hasTriple,needsSeats,result,tripleBonus,error:needsSeats?'三人同分，请为四位选手选择互不重复的开局座次。':''};
+}
+function renderRoster(){
+  $('roster').replaceChildren();
+  teams.forEach(team=>{
+    const section=el('div',undefined,'team'),heading=el('div',undefined,'team-title');
+    const swatch=el('span',undefined,'swatch');swatch.style.background=/^#[0-9a-f]{6}$/i.test(team.color)?team.color:'#647587';
+    heading.append(swatch,el('span',team.name));section.append(heading);
+    const names=el('div',undefined,'names');
+    team.players.forEach(name=>{
+      const selected=players.some(p=>p.name===name),button=el('button',name,'name-btn'+(selected?' selected':''));
+      button.disabled=selected;button.addEventListener('click',()=>pickName(name));names.append(button);
+    });
+    section.append(names);$('roster').append(section);
+  });
+}
+function pickName(name){
+  players[activeRow].name=name;
+  players.forEach(p=>p.seat='');
+  const empty=players.findIndex(p=>!p.name);if(empty>=0)activeRow=empty;
+  renderRows();renderRoster();updateCalculation();notify('');
+}
+function renderRows(){
+  $('rows').replaceChildren();
+  players.forEach((player,index)=>{
+    const row=el('div',undefined,'entry-grid player-row'+(activeRow===index?' active':''));row.dataset.row=index;
+    const pick=el('button',undefined,'pick-row');pick.setAttribute('aria-label',`选择第 ${index+1} 行选手`);
+    pick.append(el('span',String(index+1).padStart(2,'0'),'row-index'),el('span',player.name||'点击左侧名字',player.name?'':'empty-name'));
+    pick.addEventListener('click',()=>{activeRow=index;document.querySelectorAll('.player-row').forEach((r,i)=>r.classList.toggle('active',i===index));});
+    const score=el('input',undefined,'score num');score.type='number';score.step='1';score.value=player.score;score.placeholder='如 35800';score.setAttribute('aria-label',`${player.name||'选手'+(index+1)}的最终持点`);
+    score.addEventListener('input',()=>{player.score=score.value;updateCalculation();});
+    const rank=el('span','—','rank');rank.id='rank-'+index;
+    const point=el('span','—','point num');point.id='point-'+index;
+    row.append(pick,score,rank,point);$('rows').append(row);
+  });
+  renderSeats();
+}
+function renderSeats(){
+  $('seats').replaceChildren();
+  players.forEach((p,i)=>{
+    const label=el('label',p.name||`选手 ${i+1}`),select=el('select');select.setAttribute('aria-label',`${p.name||'选手'+(i+1)}的开局座次`);
+    const blank=el('option','请选择');blank.value='';select.append(blank);
+    seatNames.forEach((name,n)=>{const option=el('option',name);option.value=String(n);select.append(option);});select.value=p.seat;
+    select.addEventListener('change',()=>{p.seat=select.value;updateCalculation();});label.append(select);$('seats').append(label);
+  });
+}
+function updateCalculation(){
+  const state=calculate(players);
+  $('tie-box').hidden=!state.hasTriple;
+  $('score-total').textContent=players.every(p=>validScore(p.score))?players.reduce((sum,p)=>sum+Number(p.score),0).toLocaleString('en-US'):'—';
+  players.forEach((p,i)=>{
+    const result=state.result?.[i];$('rank-'+i).textContent=result?(result.tied?'并列':'')+result.rank:'—';
+    const point=$('point-'+i);point.textContent=result?.point!=null?formatPoint(result.point):'—';
+    point.className='point num'+(result?.point>0?' positive':result?.point<0?' negative':'');
+  });
+  $('calculation-status').textContent=state.ready?'积分已计算':state.needsSeats?'等待补充起家顺序':'填写四人的持点后计算积分';
+  $('tie-detail').textContent=state.needsSeats?'四人的座次不能重复。':state.tripleBonus?.map(x=>`${x.name||'未选选手'}：${formatPoint(x.bonus)}`).join(' / ')||'';
+  $('game-id').textContent='gameId: '+(editingId===null?nextId:editingId);
+}
+function draftHasContent(){return $('info').value!==''||players.some(p=>p.name||p.score!=='');}
+function resetEditor(){players=emptyPlayers();editingId=null;activeRow=0;$('info').value='';$('editor-title').textContent='录入新比赛';$('save').textContent='保存本场，继续录入';$('cancel').hidden=true;renderRows();renderRoster();updateCalculation();}
+function saveGame(){
+  if(players.some(p=>!p.name)){notify('请先选择四名选手。',true);return;}
+  if(new Set(players.map(p=>p.name)).size!==4){notify('同一场不能重复选择选手。',true);return;}
+  const state=calculate(players);if(!state.ready){notify(state.error,true);return;}
+  const id=editingId===null?nextId:editingId;
+  const game={gameId:id,info:$('info').value,players:players.map((p,i)=>({name:p.name,score:Number(p.score),teamPoint:state.result[i].point}))};
+  if(editingId===null){games.push(game);nextId++;}else games[games.findIndex(g=>g.gameId===id)]=game;
+  seatHistory.set(id,players.map(p=>p.seat));unsaved=true;resetEditor();renderGames();notify(`已保存比赛 #${id}，可以继续录入。`);
+}
+function editGame(id){
+  if(draftHasContent()&&!confirm('切换比赛会丢弃当前未保存的填写内容，继续吗？'))return;
+  const game=games.find(g=>g.gameId===id);editingId=id;players=game.players.map((p,i)=>({name:p.name,score:String(p.score),seat:seatHistory.get(id)?.[i]??''}));
+  $('info').value=game.info;activeRow=0;$('editor-title').textContent='修改比赛';$('save').textContent='保存修改';$('cancel').hidden=false;
+  renderRows();renderRoster();updateCalculation();notify('');$('editor-title').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function deleteGame(id){
+  if(!confirm(`确定删除比赛 #${id} 吗？其他比赛编号保持不变。`))return;
+  games=games.filter(g=>g.gameId!==id);seatHistory.delete(id);unsaved=true;if(editingId===id)resetEditor();renderGames();notify(`已删除比赛 #${id}。`);
+}
+function renderGames(){
+  $('count').textContent=games.length;$('download').disabled=!games.length;$('games-list').replaceChildren();
+  if(!games.length){$('games-list').append(el('div','保存第一场比赛后，这里会显示比赛记录。','empty'));return;}
+  games.forEach(game=>{
+    const card=el('article',undefined,'game'),top=el('div',undefined,'game-top'),title=el('div',undefined,'game-title');
+    title.append(el('span','#'+game.gameId,'game-id'),el('span',game.info||'未填写比赛信息'));
+    const controls=el('div',undefined,'game-tools'),edit=el('button','修改','small'),remove=el('button','删除','small danger');
+    edit.addEventListener('click',()=>editGame(game.gameId));remove.addEventListener('click',()=>deleteGame(game.gameId));controls.append(edit,remove);top.append(title,controls);
+    const list=el('div',undefined,'game-players');game.players.forEach(p=>{const item=el('div');item.append(el('span',p.name),el('span',p.score.toLocaleString('en-US')+' 点','sub'),el('span',formatPoint(p.teamPoint),p.teamPoint<0?'negative':'positive'));list.append(item);});card.append(top,list);$('games-list').append(card);
+  });
+}
+$('save').addEventListener('click',saveGame);
+function discardDraft(){if(draftHasContent()&&!confirm('确定放弃当前未保存的填写内容吗？'))return;resetEditor();notify('');}
+$('reset').addEventListener('click',discardDraft);$('cancel').addEventListener('click',discardDraft);
+$('download').addEventListener('click',()=>{
+  if(draftHasContent()&&!confirm('当前填写内容尚未保存。本次只下载下方已保存的比赛，继续吗？'))return;
+  const blob=new Blob([JSON.stringify({games},null,2)+'\n'],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),link=el('a');link.href=url;link.download='games.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);unsaved=false;notify(`已发起下载，共 ${games.length} 场比赛。`);
+});
+$('import-teams').addEventListener('click',()=>$('teams-file').click());
+$('teams-file').addEventListener('change',async event=>{
+  const file=event.target.files[0];if(!file)return;
+  try{
+    const data=JSON.parse((await file.text()).replace(/^\uFEFF/,''));
+    if(!Array.isArray(data.teams)||!data.teams.length||data.teams.some(t=>!t||typeof t.name!=='string'||!Array.isArray(t.players)||!t.players.length||t.players.some(n=>typeof n!=='string'||!n.trim())))throw new Error('名单格式不正确，需要 teams 数组和各队的 players 名字数组。');
+    const names=data.teams.flatMap(t=>t.players);if(new Set(names).size!==names.length)throw new Error('名单中存在重复名字，请检查后重新导入。');
+    teams=data.teams;renderRoster();notify('名单已更新，已录入的比赛保持不变。');
+  }catch(error){notify('导入失败：'+error.message,true);}finally{event.target.value='';}
+});
+window.addEventListener('beforeunload',event=>{if(unsaved||draftHasContent()){event.preventDefault();event.returnValue='';}});
+renderRows();renderRoster();renderGames();updateCalculation();
+</script>
+</body>
+</html>
