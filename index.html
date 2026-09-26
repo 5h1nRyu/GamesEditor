@@ -18,7 +18,7 @@
 <main>
 <aside class="panel"><div class="panel-head"><h2>选手名单</h2><button id="import-teams" class="small">更换名单</button><input id="teams-file" type="file" accept=".json,application/json" hidden></div><div style="padding:8px 12px 0" class="sub">点击队伍展开，点击名字填入。</div><div id="roster" class="roster"></div></aside>
 <div class="workspace">
-<section class="panel"><div class="panel-head"><h2 id="editor-title">录入新比赛</h2><span id="game-id" class="sub"></span></div>
+<section class="panel"><div class="panel-head"><h2 id="editor-title">录入新比赛</h2><div class="list-actions"><span id="game-id" class="sub"></span><button id="import-games" class="small" type="button">导入文件</button><input id="games-file" type="file" accept=".json,application/json" hidden></div></div>
 <div class="editor-body">
 <label for="info" class="info-label">比赛信息 · info</label><input id="info" type="text" placeholder="例如：9月26日 第一场" autocomplete="off">
 <div class="entry-grid table-labels"><span>选手 · name</span><span class="num">最终持点 · score</span><span class="rank">顺位</span><span class="num">特殊扣分</span><span class="num">积分</span></div>
@@ -41,7 +41,7 @@
 const $ = id => document.getElementById(id);
 let teams = JSON.parse($('team-data').textContent).teams;
 let games = [], nextId = 0, editingId = null, activeRow = 0, unsaved = false, autoScoreIndex = null, openTeamName = null;
-let players = emptyPlayers();
+let players = emptyPlayers(), savingFile = false;
 const seatNames = ['东（起家）','南','西','北'];
 const seatHistory = new Map(); // 仅用于本页重新编辑，绝不导出额外字段。
 function emptyPlayers(){return Array.from({length:4},()=>({name:'',score:'25000',seat:'',deduction:'',deductionOpen:false}));}
@@ -117,7 +117,7 @@ function renderRows(){
   $('rows').replaceChildren();
   players.forEach((player,index)=>{
     const row=el('div',undefined,'entry-grid player-row'+(activeRow===index?' active':''));row.dataset.row=index;
-    // 捕获阶段先选中，扣分按钮随后重绘时也会保留正确的选中行。
+    // 捕获阶段先选中，让行内控件的后续操作作用于正确的选手。
     row.addEventListener('pointerdown',()=>selectRow(index),true);
     row.addEventListener('click',()=>selectRow(index),true);
     row.addEventListener('focusin',()=>selectRow(index));
@@ -130,15 +130,20 @@ function renderRows(){
     const rank=el('span','—','rank');rank.id='rank-'+index;
     const point=el('span','—','point num');point.id='point-'+index;
     const deductionBox=el('div',undefined,'deduction-wrap');
-    if(!player.deductionOpen){
-      const trigger=el('button','扣分','deduction-trigger');trigger.type='button';trigger.setAttribute('aria-label',`为${player.name||'选手'+(index+1)}添加特殊扣分`);
-      trigger.addEventListener('click',()=>{player.deductionOpen=true;renderRows();updateCalculation();document.querySelector(`.player-row[data-row="${index}"] .deduction`)?.focus();});deductionBox.append(trigger);
-    }else{
-      const deduction=el('input',undefined,'deduction num');deduction.type='number';deduction.min='0';deduction.step='any';deduction.value=player.deduction;deduction.placeholder='扣分';deduction.setAttribute('aria-label',`${player.name||'选手'+(index+1)}的特殊扣分`);
-      deduction.addEventListener('input',()=>{player.deduction=deduction.value;updateCalculation();});
-      deduction.addEventListener('change',()=>{if(Number(deduction.value)===0){player.deduction='';player.deductionOpen=false;renderRows();updateCalculation();}});
-      deductionBox.append(deduction);
+    // 只替换本行扣分控件，失焦收起时不重建其他正在接收点击或焦点的控件。
+    function renderDeduction(){
+      deductionBox.replaceChildren();
+      if(!player.deductionOpen){
+        const trigger=el('button','扣分','deduction-trigger');trigger.type='button';trigger.setAttribute('aria-label',`为${player.name||'选手'+(index+1)}添加特殊扣分`);
+        trigger.addEventListener('click',()=>{player.deductionOpen=true;renderDeduction();deductionBox.querySelector('input').focus();});deductionBox.append(trigger);
+      }else{
+        const deduction=el('input',undefined,'deduction num');deduction.type='number';deduction.min='0';deduction.step='any';deduction.value=player.deduction;deduction.placeholder='扣分';deduction.setAttribute('aria-label',`${player.name||'选手'+(index+1)}的特殊扣分`);
+        deduction.addEventListener('input',()=>{player.deduction=deduction.value;updateCalculation();});
+        deduction.addEventListener('blur',()=>{if(!deduction.validity.badInput&&(deduction.value.trim()===''||Number(deduction.value)===0)){player.deduction='';player.deductionOpen=false;renderDeduction();updateCalculation();}});
+        deductionBox.append(deduction);
+      }
     }
+    renderDeduction();
     row.append(pick,score,rank,deductionBox,point);$('rows').append(row);
   });
   renderSeats();
@@ -222,7 +227,7 @@ function deleteGame(id){
   games=games.filter(g=>g.gameId!==id);seatHistory.delete(id);unsaved=true;if(editingId===id)resetEditor();renderGames();notify(`已删除比赛 #${id}。`);
 }
 function renderGames(){
-  $('count').textContent=games.length;$('download').disabled=!games.length;$('games-list').replaceChildren();
+  $('count').textContent=games.length;$('download').disabled=savingFile||!games.length;$('games-list').replaceChildren();
   if(!games.length){$('games-list').append(el('div','保存第一场比赛后，这里会显示比赛记录。','empty'));return;}
   games.forEach(game=>{
     const card=el('article',undefined,'game'),top=el('div',undefined,'game-top'),title=el('div',undefined,'game-title');
@@ -236,9 +241,60 @@ $('correct-score').addEventListener('click',correctSelectedScore);
 $('save').addEventListener('click',saveGame);
 function discardDraft(){if(draftHasContent()&&!confirm('确定放弃当前未保存的填写内容吗？'))return;resetEditor();notify('');}
 $('reset').addEventListener('click',discardDraft);$('cancel').addEventListener('click',discardDraft);
-$('download').addEventListener('click',()=>{
+$('download').addEventListener('click',async()=>{
+  if(savingFile)return;
   if(draftHasContent()&&!confirm('当前填写内容尚未保存。本次只下载下方已保存的比赛，继续吗？'))return;
-  const blob=new Blob([JSON.stringify({games},null,2)+'\n'],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),link=el('a');link.href=url;link.download='games.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);unsaved=false;notify(`已发起下载，共 ${games.length} 场比赛。`);
+  if(!window.isSecureContext||typeof window.showSaveFilePicker!=='function'){
+    notify('当前页面无法打开另存为窗口。请使用最新版 Chrome，通过 HTTPS 网站、本地 HTML 文件或 localhost 打开页面。',true);return;
+  }
+  savingFile=true;$('download').disabled=true;
+  let writable;
+  try{
+    // 在点击事件中直接打开系统另存为窗口，每次都由用户选择目录和文件名。
+    const picker=window.showSaveFilePicker({suggestedName:'games.json',types:[{description:'JSON 比赛文件',accept:{'application/json':['.json']}}]});
+    const content=JSON.stringify({games},null,2)+'\n',count=games.length;
+    const handle=await picker;
+    writable=await handle.createWritable();await writable.write(content);await writable.close();writable=null;
+    // 写入期间若有新增、修改、删除或导入，不能误清除这些数据的未导出状态。
+    const unchanged=content===JSON.stringify({games},null,2)+'\n';
+    if(unchanged)unsaved=false;
+    notify(`已保存 ${handle.name}，共 ${count} 场比赛。`+(unchanged?'':'页面数据已变化，请再次保存最新内容。'));
+  }catch(error){
+    if(writable){try{await writable.abort();}catch{}}
+    notify(error.name==='AbortError'?'已取消保存。':'保存失败：'+error.message,error.name!=='AbortError');
+  }finally{savingFile=false;$('download').disabled=!games.length;}
+});
+// 导入只读取已有结果，不重新计分，也不要求或导出起家座次。
+function parseGamesFile(text){
+  const data=JSON.parse(text.replace(/^\uFEFF/,''));
+  if(!data||!Array.isArray(data.games))throw new Error('需要包含 games 数组的比赛文件。');
+  const ids=new Set();
+  return data.games.map((game,index)=>{
+    const label=`第 ${index+1} 场比赛`;
+    if(!game||!Number.isSafeInteger(game.gameId)||game.gameId<0||game.gameId>=Number.MAX_SAFE_INTEGER)throw new Error(label+'的 gameId 必须是可继续递增的非负整数。');
+    if(ids.has(game.gameId))throw new Error('存在重复的 gameId：'+game.gameId);ids.add(game.gameId);
+    if(typeof game.info!=='string'||!Array.isArray(game.players)||game.players.length!==4)throw new Error(label+'需要 info 文本和四名选手。');
+    const names=new Set();
+    const importedPlayers=game.players.map(player=>{
+      if(!player||typeof player.name!=='string'||!player.name.trim()||typeof player.score!=='number'||!validScore(player.score)||typeof player.teamPoint!=='number'||!Number.isFinite(player.teamPoint))throw new Error(label+'的选手姓名、持点或积分格式不正确。');
+      if(names.has(player.name))throw new Error(label+'存在重复选手。');names.add(player.name);
+      return {name:player.name,score:player.score,teamPoint:player.teamPoint};
+    });
+    return {gameId:game.gameId,info:game.info,players:importedPlayers};
+  });
+}
+$('import-games').addEventListener('click',()=>$('games-file').click());
+$('games-file').addEventListener('change',async event=>{
+  const file=event.target.files[0];if(!file)return;
+  $('import-games').disabled=true;
+  try{
+    const imported=parseGamesFile(await file.text());
+    if((games.length||unsaved||draftHasContent()||editingId!==null)&&!confirm('导入将替换当前比赛列表，并清空当前填写内容。尚未导出的内容将被丢弃，继续吗？'))return;
+    games=imported;nextId=games.reduce((next,game)=>Math.max(next,game.gameId+1),0);
+    seatHistory.clear();unsaved=false;resetEditor();renderGames();
+    notify(`已导入 ${games.length} 场比赛，可以从 gameId ${nextId} 继续录入。`);
+  }catch(error){notify('导入失败：'+error.message,true);}
+  finally{event.target.value='';$('import-games').disabled=false;}
 });
 $('import-teams').addEventListener('click',()=>$('teams-file').click());
 $('teams-file').addEventListener('change',async event=>{
